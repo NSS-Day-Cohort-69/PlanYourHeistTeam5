@@ -3,7 +3,7 @@ List<TeamMember> teamMembers = new List<TeamMember>();
 
 void Heist()
 {
-
+    int bankDifficulty = 100;
     Console.WriteLine("Plan Your Heist!");
    
     string newMemberName = null;
@@ -95,25 +95,31 @@ void Heist()
     void membersList()
     {
         addMore = false;
-
-        Console.WriteLine($"{teamMembers.Count} members on the team!");
-
-        foreach (TeamMember teamMember in teamMembers)
-        {
-            Console.WriteLine($"Name: {teamMember.Name} - Skill Level: {teamMember.SkillLevel} - Courage Factor: {teamMember.CourageFactor}");
+        int sum = 0;
+        foreach (TeamMember member in teamMembers ){
+            sum += member.SkillLevel;
         }
+        Console.WriteLine(sum);
+
+        if (sum > bankDifficulty){
+            Console.WriteLine("OMG you did it you robbed a bank holy crap!");
+        } else {
+            Console.WriteLine("JailTIME oopsies");
+        }
+
+        // Console.WriteLine($"{teamMembers.Count} members on the team!");
+
+        // foreach (TeamMember teamMember in teamMembers)
+        // {
+        //     Console.WriteLine($"Name: {teamMember.Name} - Skill Level: {teamMember.SkillLevel} - Courage Factor: {teamMember.CourageFactor}");
+        // }
     }
 
 }
 
 Heist();
 
-
-
-//create a new list out the heist function 
-// after creating list do an .Add 
-// call the count function after the blankspace to stop collecting team memebers
-// use list.count to get members 
-// use a foreach loop to iterate through team members to log out members information
-// added addMore to our while loop and set that to true 
-// added an if statement to check if addMore is not true then break
+// delete team member info
+// hard code bank difficulty
+// sum up skill level
+// compare and output message 
