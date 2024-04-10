@@ -1,81 +1,119 @@
-﻿// Create function, Heist()
-    // Console out "Plan Your Heist!"
-    // While name (declare before while loop) == null, prompt the user to input a name and store that name in variable, newName
-    // While skill (declare before while loop) == null, prompt the user to input a skill level (1 - 30) and store that skill in variable, newSkillLevel
-    // While courageFactor (declare before while loop) == null, prompt the user to input a CF(0.0 - 2.0), and store that CF in variable, newCourageFactor
-
-    // Display team member's info (Name: N - Skill: S - Courage Factor: CF) 
+﻿
+List<TeamMember> teamMembers = new List<TeamMember>();
 
 void Heist()
 {
+
     Console.WriteLine("Plan Your Heist!");
-    TeamMember newTeamMember = new TeamMember()
-    {
-        Name = null,
-        SkillLevel = 0,
-        CourageFactor = -1
-    };
+   
+    string newMemberName = null;
+    int newMemberSkillLevel = 0;
+    decimal newMemberCourageFactor = -1;
 
-    while (newTeamMember.Name == null)
+    bool addMore = true;
+    
+    while (addMore )
     {
-        Console.Write("Enter team member's name: ");
-        string newName = Console.ReadLine()!.Trim();
 
-        if (string.IsNullOrWhiteSpace(newName))
+        while (newMemberName == null)
         {
-            Console.WriteLine("Please enter your name :P");
-        }
-        else
-        {
-            newTeamMember.Name = newName;
-        }
-    }
+            Console.Write("Enter team member's name: ");
+            string newName = Console.ReadLine()!.Trim();
 
-    while (newTeamMember.SkillLevel < 1 || newTeamMember.SkillLevel > 30)
-    {
-        Console.Write("Enter team member's skill level (1-30): ");
-        try
-        {
-            int newSkillLevel = int.Parse(Console.ReadLine()!.Trim());
-            if (newSkillLevel < 1 || newSkillLevel > 30)
+            if (string.IsNullOrWhiteSpace(newName))
             {
-                Console.WriteLine("Please only enter in a skill level 1-30!");
+            
+                Console.WriteLine(addMore);
+                membersList();
+                break;
             }
             else
             {
-                newTeamMember.SkillLevel = newSkillLevel;
-                Console.WriteLine(newTeamMember.SkillLevel);
+                newMemberName = newName;
             }
         }
-        catch (FormatException)
+        if (!addMore)
+            break;
+
+        while (newMemberSkillLevel < 1 || newMemberSkillLevel > 30 && addMore)
         {
-            Console.WriteLine("Please only enter integers!");
+            Console.Write("Enter team member's skill level (1-30): ");
+            try
+            {
+                int newSkillLevel = int.Parse(Console.ReadLine()!.Trim());
+                if (newSkillLevel < 1 || newSkillLevel > 30)
+                {
+                    Console.WriteLine("Please only enter in a skill level 1-30!");
+                }
+                else
+                {
+                    newMemberSkillLevel = newSkillLevel;
+                  
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please only enter integers!");
+            }
         }
+
+        while (newMemberCourageFactor < 0 || newMemberCourageFactor > 2 && addMore)
+        {
+            Console.Write("Enter team member's courage factor (0.0 - 2.0): ");
+            try
+            {
+                decimal newCourageFactor = decimal.Parse(Console.ReadLine()!.Trim());
+                if (newCourageFactor < 0 || newCourageFactor > 2)
+                {
+                    Console.WriteLine("Please only type a courage factorr 0.0 - 2.0!");
+                }
+                else
+                {
+                    newMemberCourageFactor = newCourageFactor;
+            
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please only enter decimals!");
+            }
+        }
+        TeamMember NewTeamMember = new TeamMember()
+        {
+           
+            Name = newMemberName,
+            SkillLevel = newMemberSkillLevel,
+            CourageFactor = newMemberCourageFactor
+        };
+
+        teamMembers.Add(NewTeamMember);
+            newMemberName = null;
+            newMemberSkillLevel = 0;
+            newMemberCourageFactor = -1;
     }
-    
-    while (newTeamMember.CourageFactor < 0 || newTeamMember.CourageFactor > 2)
+
+    void membersList()
     {
-        Console.Write("Enter team member's courage factor (0.0 - 2.0): ");
-        try
+        addMore = false;
+
+        Console.WriteLine($"{teamMembers.Count} members on the team!");
+
+        foreach (TeamMember teamMember in teamMembers)
         {
-            decimal newCourageFactor = decimal.Parse(Console.ReadLine()!.Trim());
-            if (newCourageFactor < 0 || newCourageFactor > 2)
-            {
-                Console.WriteLine("Please only type a courage factorr 0.0 - 2.0!");
-            }
-            else
-            {
-                newTeamMember.CourageFactor = newCourageFactor;
-                Console.WriteLine(newTeamMember.CourageFactor);
-            }
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Please only enter decimals!");
+            Console.WriteLine($"Name: {teamMember.Name} - Skill Level: {teamMember.SkillLevel} - Courage Factor: {teamMember.CourageFactor}");
         }
     }
-    
-    Console.WriteLine($"Name: {newTeamMember.Name} - Skill Level: {newTeamMember.SkillLevel} - Courage Factor: {newTeamMember.CourageFactor}");
+
 }
 
 Heist();
+
+
+
+//create a new list out the heist function 
+// after creating list do an .Add 
+// call the count function after the blankspace to stop collecting team memebers
+// use list.count to get members 
+// use a foreach loop to iterate through team members to log out members information
+// added addMore to our while loop and set that to true 
+// added an if statement to check if addMore is not true then break
