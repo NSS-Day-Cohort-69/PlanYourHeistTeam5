@@ -5,7 +5,7 @@ Random random = new Random();
 void Heist()
 {
     int bankDifficulty = 100;
-    int luck = random.Next(-10, 11);
+    
     Console.WriteLine("Plan Your Heist!");
    
     string newMemberName = null;
@@ -13,9 +13,30 @@ void Heist()
     decimal newMemberCourageFactor = -1;
 
     bool addMore = true;
+    int trials = 0;
+    
+    
+    while (trials < 1){
+       Console.WriteLine("How many trial runs do u want? (max 30)");
+       try{
+        int response = int.Parse(Console.ReadLine()!);
+        if (response < 1 || response > 30){
+            Console.WriteLine("Bro thats a shitty number!");
+        } else {
+            trials = response;
+        }
+       }
+       catch (FormatException)
+       {
+        Console.WriteLine("Please type only integers");
+       }
+    }
+    
     
     while (addMore)
     {
+
+
 
         while (newMemberName == null)
         {
@@ -102,6 +123,8 @@ void Heist()
 
     void HeistStatus()
     {
+        int luck = random.Next(-10, 11);
+        trials--;
         addMore = false;
         bankDifficulty += luck;
         int skillSum = 0;
@@ -128,14 +151,17 @@ The bank's difficulty is {bankDifficulty}");
         {
             Console.WriteLine("JailTIME oopsies");
         }
+        if (trials != 0){
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            HeistStatus();
+        }
     }
 
 }
 
 Heist();
 
-// Declare random class and function
-    // Declare luck variable and initialize it as a random number between (-10 and 10) using the .Next method
-    // In function, HeistStatus, add luck to bank difficulty
-    // In function, HeistStatus, display team's combined skill level AND bank's difficulty level (luck included!)
-        // After, HeistStatus, runs, wait for user to push any key (ReadKey), then run HeistResult()
+//declare a trial variable 
+//add it to outer while loop condition 
+//make new random luck value each time 
